@@ -30,21 +30,21 @@ void cleanse(string& str) {
 }
 
 void ltrim(string &str) {
-    str.erase(str.begin(),
-              find_if(str.begin(),
-                      str.end(),
-                      not1(ptr_fun<int, int>(isspace))));
+  str.erase(str.begin(),
+            find_if(str.begin(),
+                    str.end(),
+                    not1(ptr_fun<int, int>(isspace))));
 }
 
 void rtrim(string &str) {
-    str.erase(find_if(str.rbegin(),
-                      str.rend(),
-                      not1(ptr_fun<int, int>(isspace))).base(),
-              str.end());
+  str.erase(find_if(str.rbegin(),
+                    str.rend(),
+                    not1(ptr_fun<int, int>(isspace))).base(),
+            str.end());
 }
 
 void trim(string &str) {
-    ltrim(str);
-    rtrim(str);
+  ltrim(str);
+  rtrim(str);
 }
 
