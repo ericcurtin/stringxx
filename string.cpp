@@ -29,14 +29,14 @@ void cleanse(string& str) {
   str.clear();
 }
 
-void ltrim(string &str) {
+void ltrim(string& str) {
   str.erase(str.begin(),
             find_if(str.begin(),
                     str.end(),
                     not1(ptr_fun<int, int>(isspace))));
 }
 
-void rtrim(string &str) {
+void rtrim(string& str) {
   str.erase(find_if(str.rbegin(),
                     str.rend(),
                     not1(ptr_fun<int, int>(isspace))).base(),
@@ -46,5 +46,13 @@ void rtrim(string &str) {
 void trim(string &str) {
   ltrim(str);
   rtrim(str);
+}
+
+void lower(string& str) {
+  transform(str.begin(), str.end(), str.begin(), tolower);
+}
+
+void upper(string& str) {
+  transform(str.begin(), str.end(), str.begin(), toupper);
 }
 
