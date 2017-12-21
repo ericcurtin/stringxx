@@ -1,19 +1,21 @@
 #include <string>
 #include <functional>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 #include <openssl/crypto.h>
 
 using std::string;
 using std::ptr_fun;
 using std::find_if;
+using std::ifstream;
+using std::stringstream;
 
-void replace_all(string& str,
-                 const string& from,
-                 const string& to) {
+void replace_all(string& str, const string& from, const string& to) {
   // Prevents infinite loops
   if (from.empty()) {
-     return;
+    return;
   }
 
   for (size_t pos = 0; (pos = str.find(from, pos)) != string::npos;) {
@@ -31,19 +33,16 @@ void cleanse(string& str) {
 
 void ltrim(string& str) {
   str.erase(str.begin(),
-            find_if(str.begin(),
-                    str.end(),
-                    not1(ptr_fun<int, int>(isspace))));
+            find_if(str.begin(), str.end(), not1(ptr_fun<int, int>(isspace))));
 }
 
 void rtrim(string& str) {
-  str.erase(find_if(str.rbegin(),
-                    str.rend(),
-                    not1(ptr_fun<int, int>(isspace))).base(),
+  str.erase(find_if(str.rbegin(), str.rend(), not1(ptr_fun<int, int>(isspace)))
+                .base(),
             str.end());
 }
 
-void trim(string &str) {
+void trim(string& str) {
   ltrim(str);
   rtrim(str);
 }
@@ -56,3 +55,10 @@ void upper(string& str) {
   transform(str.begin(), str.end(), str.begin(), toupper);
 }
 
+string file2string(const string& file) {
+  ifstream ifs(file.c_str());
+  stringstream ss;
+  ss << ifs.rdbuf();
+
+  return ss.str();
+}
